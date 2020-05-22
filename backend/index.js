@@ -22,6 +22,7 @@ mongoose
 
 //Middlewares
 app.use(cors());
+app.use("/uploads", express.static("uploads"));
 app.use(express.json());
 app.use("/api", require("./routes/auth"));
 

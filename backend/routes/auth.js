@@ -10,6 +10,7 @@ const storage = multer.diskStorage({
     cb(null, Date.now() + file.originalname);
   },
 });
+
 const upload = multer({ storage: storage });
 
 const Product = require("../models/Products");
@@ -28,7 +29,7 @@ router.post("/add", upload.single("productImage"), async (req, res) => {
     name: req.body.name,
     description: req.body.description,
     price: req.body.price,
-    productImage: req.file.path,
+    productImage: req.file.filename,
   });
   try {
     const savedProduct = await product.save();

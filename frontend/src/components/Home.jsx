@@ -13,8 +13,11 @@ const Home = () => {
   useEffect(() => {
     axios
       .get("http://localhost:5000/api/products")
-      //.then((res) => setProducts(res.data))
-      .then((res) => console.log(res.data));
+      .then((res) => {
+        console.log(res);
+        setProducts(res.data);
+      })
+      .catch((err) => console.log({ message: err }));
   }, []);
 
   return (
@@ -27,12 +30,21 @@ const Home = () => {
       <Grid item container spacing={1}>
         <Grid item xs={false} sm={1}></Grid>
         <Grid item xs={12} sm={7}>
-          <Paper>
-            2<ProductDetails />
-          </Paper>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "space-between",
+              marginTop: "10vh",
+            }}
+          >
+            {products.map((product) => (
+              <ProductDetails key={product._id} product={product} />
+            ))}
+          </div>
         </Grid>
         <Grid item xs={12} sm={3}>
-          <Paper>
+          <Paper style={{ marginTop: "10vh" }}>
             3<Cart />
           </Paper>
         </Grid>
