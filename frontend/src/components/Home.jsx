@@ -9,6 +9,13 @@ import Cart from "./Cart";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [totalQty, setTotalQty] = useState(0);
+  const [productInCart] = useState([]);
+
+  if (selectedProduct !== null) {
+    productInCart.push(selectedProduct);
+  }
 
   useEffect(() => {
     axios
@@ -21,36 +28,44 @@ const Home = () => {
   }, []);
 
   return (
-    <Grid container spacing={2} direction="row">
-      <Grid item xs={12} sm={12}>
-        <Paper>
-          <Navbar />
-        </Paper>
-      </Grid>
-      <Grid item container spacing={1}>
-        <Grid item xs={false} sm={1}></Grid>
-        <Grid item xs={12} sm={7}>
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "space-between",
-              marginTop: "10vh",
-            }}
-          >
-            {products.map((product) => (
-              <ProductDetails key={product._id} product={product} />
-            ))}
-          </div>
-        </Grid>
-        <Grid item xs={12} sm={3}>
-          <Paper style={{ marginTop: "10vh" }}>
-            3<Cart />
+    <div style={{ backgroundColor: "whitesmoke" }}>
+      <Grid container spacing={2} direction="row">
+        <Grid item xs={12} sm={12}>
+          <Paper>
+            <Navbar totalQty={totalQty} />
           </Paper>
         </Grid>
-        <Grid item xs={false} sm={1}></Grid>
+        <Grid item container spacing={1}>
+          <Grid item xs={false} sm={1}></Grid>
+          <Grid item xs={12} sm={7}>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "space-between",
+                marginTop: "10vh",
+              }}
+            >
+              {products.map((product) => (
+                <ProductDetails
+                  key={product._id}
+                  product={product}
+                  onClick={(p) => setSelectedProduct(p)}
+                  totalQty={totalQty}
+                  setTotalQty={setTotalQty}
+                />
+              ))}
+            </div>
+          </Grid>
+          <Grid item xs={12} sm={3}>
+            <Paper style={{ marginTop: "10vh" }}>
+              <Cart productInCart={productInCart} />
+            </Paper>
+          </Grid>
+          <Grid item xs={false} sm={1}></Grid>
+        </Grid>
       </Grid>
-    </Grid>
+    </div>
   );
 };
 
