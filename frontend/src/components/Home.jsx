@@ -9,13 +9,9 @@ import Cart from "./Cart";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  //const [selectedProduct, setSelectedProduct] = useState(null);
   const [totalQty, setTotalQty] = useState(0);
-  const [productInCart] = useState([]);
-
-  if (selectedProduct !== null) {
-    productInCart.push(selectedProduct);
-  }
+  const [productInCart, setProductInCart] = useState([]);
 
   useEffect(() => {
     axios
@@ -50,7 +46,8 @@ const Home = () => {
                 <ProductDetails
                   key={product._id}
                   product={product}
-                  onClick={(p) => setSelectedProduct(p)}
+                  productInCart={productInCart}
+                  setProductInCart={setProductInCart}
                   totalQty={totalQty}
                   setTotalQty={setTotalQty}
                 />
@@ -58,8 +55,12 @@ const Home = () => {
             </div>
           </Grid>
           <Grid item xs={12} sm={3}>
-            <Paper style={{ marginTop: "10vh" }}>
-              <Cart productInCart={productInCart} />
+            <Paper style={{ marginTop: "10.5vh" }}>
+              <Cart
+                productInCart={productInCart}
+                setProductInCart={setProductInCart}
+                setTotalQty={setTotalQty}
+              />
             </Paper>
           </Grid>
           <Grid item xs={false} sm={1}></Grid>

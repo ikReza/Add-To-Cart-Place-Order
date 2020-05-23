@@ -23,7 +23,13 @@ const useStyles = createUseStyles(() => ({
   },
 }));
 
-const ProductDetails = ({ product, onClick, totalQty, setTotalQty }) => {
+const ProductDetails = ({
+  product,
+  totalQty,
+  setTotalQty,
+  productInCart,
+  setProductInCart,
+}) => {
   const [clicked, setClicked] = useState(false);
   const [qty, setQty] = useState(1);
 
@@ -32,9 +38,12 @@ const ProductDetails = ({ product, onClick, totalQty, setTotalQty }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    totalQty += qty;
+    totalQty += qty * 1;
     setQty(1);
-    console.log(`TQty ${totalQty}`, typeof qty, typeof totalQty);
+    setTotalQty(totalQty * 1);
+    const data = [product, qty * 1];
+    setProductInCart([...productInCart, data]);
+    //console.log(`TQty ${totalQty}`, typeof qty, typeof totalQty);
   };
 
   return (
@@ -72,7 +81,7 @@ const ProductDetails = ({ product, onClick, totalQty, setTotalQty }) => {
               type="number"
               size="small"
               value={qty}
-              onChange={(e) => setQty(e.target.value)}
+              onInput={(e) => setQty(e.target.value)}
               InputProps={{
                 inputProps: { min: 1 },
                 disableUnderline: true,
@@ -92,7 +101,7 @@ const ProductDetails = ({ product, onClick, totalQty, setTotalQty }) => {
               ${product.price}
             </Typography>
             <Tooltip title="Add to cart">
-              <IconButton type="submit" onClick={() => onClick(product)}>
+              <IconButton type="submit">
                 <AddShoppingCartOutlined size="small" />
               </IconButton>
             </Tooltip>

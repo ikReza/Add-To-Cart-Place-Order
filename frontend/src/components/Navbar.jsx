@@ -4,7 +4,7 @@ import { AppBar, Toolbar, Typography, Badge } from "@material-ui/core";
 import { ChildCare, ShoppingCart } from "@material-ui/icons";
 
 const Navbar = ({ totalQty }) => {
-  console.log(totalQty);
+  //console.log(totalQty);
   return (
     <AppBar position="fixed" style={{ backgroundColor: "#37474f" }}>
       <Toolbar>
