@@ -6,12 +6,13 @@ import { Grid, Paper } from "@material-ui/core";
 import Navbar from "./Navbar";
 import ProductDetails from "./ProductDetails";
 import Cart from "./Cart";
+import Pagination from "./Pagination";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
-  //const [selectedProduct, setSelectedProduct] = useState(null);
-  const [totalQty, setTotalQty] = useState(0);
   const [productInCart, setProductInCart] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productPerPage] = useState(6);
 
   useEffect(() => {
     axios
@@ -23,43 +24,65 @@ const Home = () => {
       .catch((err) => console.log({ message: err }));
   }, []);
 
+  const indexOfLastProduct = currentPage * productPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productPerPage;
+  const currentProducts = products.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+
   return (
     <div style={{ backgroundColor: "whitesmoke" }}>
       <Grid container spacing={2} direction="row">
         <Grid item xs={12} sm={12}>
           <Paper>
-            <Navbar totalQty={totalQty} />
+            <Navbar productInCart={productInCart} />
           </Paper>
         </Grid>
         <Grid item container spacing={1}>
           <Grid item xs={false} sm={1}></Grid>
           <Grid item xs={12} sm={7}>
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                justifyContent: "space-between",
-                marginTop: "10vh",
-              }}
-            >
-              {products.map((product) => (
-                <ProductDetails
-                  key={product._id}
-                  product={product}
-                  productInCart={productInCart}
-                  setProductInCart={setProductInCart}
-                  totalQty={totalQty}
-                  setTotalQty={setTotalQty}
+            <div>
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  justifyContent: "space-between",
+                  marginTop: "10vh",
+                  height: "75.5vh",
+                  //backgroundColor: "#37474f",
+                }}
+              >
+                {currentProducts.map((product) => (
+                  <ProductDetails
+                    key={product._id}
+                    product={product}
+                    productInCart={productInCart}
+                    setProductInCart={setProductInCart}
+                  />
+                ))}
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Pagination
+                  productPerPage={productPerPage}
+                  totalProducts={products.length}
+                  setCurrentPage={setCurrentPage}
+                  currentPage={currentPage}
                 />
-              ))}
+              </div>
             </div>
           </Grid>
           <Grid item xs={12} sm={3}>
-            <Paper style={{ marginTop: "10.5vh" }}>
+            <Paper style={{ marginTop: "10.3vh" }}>
               <Cart
                 productInCart={productInCart}
                 setProductInCart={setProductInCart}
-                setTotalQty={setTotalQty}
               />
             </Paper>
           </Grid>

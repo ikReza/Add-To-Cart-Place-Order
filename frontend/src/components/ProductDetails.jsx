@@ -8,28 +8,25 @@ import {
   TextField,
 } from "@material-ui/core";
 import { FavoriteBorder, AddShoppingCartOutlined } from "@material-ui/icons";
-import { createUseStyles, ThemeProvider, useTheme } from "react-jss";
+import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = createUseStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   size: {
     width: "30%",
-    height: "40vh",
+    height: "37vh",
     flexGrow: 1,
     margin: "0.5%",
-    backgroundColor: "#f0f1f2",
+    backgroundColor: "#DEF2F1",
   },
   input1: {
     height: 2,
   },
+  customHoverFocus: {
+    "&:hover, &.Mui-focusVisible": { backgroundColor: "#e8c051" },
+  },
 }));
 
-const ProductDetails = ({
-  product,
-  totalQty,
-  setTotalQty,
-  productInCart,
-  setProductInCart,
-}) => {
+const ProductDetails = ({ product, productInCart, setProductInCart }) => {
   const [clicked, setClicked] = useState(false);
   const [qty, setQty] = useState(1);
 
@@ -38,12 +35,9 @@ const ProductDetails = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    totalQty += qty * 1;
-    setQty(1);
-    setTotalQty(totalQty * 1);
     const data = [product, qty * 1];
     setProductInCart([...productInCart, data]);
-    //console.log(`TQty ${totalQty}`, typeof qty, typeof totalQty);
+    setQty(1);
   };
 
   return (
@@ -59,13 +53,28 @@ const ProductDetails = ({
           </IconButton>
         </Tooltip>
         <Tooltip title={product.description} placement="top">
-          <Paper align="center">
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             <img
-              style={{ height: "20vh", width: "70%" }}
+              style={{
+                height: "17vh",
+                width: "80%",
+                backgroundSize: "100%",
+                backgroundPosition: "center",
+                transition: "1s",
+                "&:hover": {
+                  backgroundSize: "150%",
+                  backgroundPosition: "center",
+                },
+              }}
               src={url}
               alt={product.name}
             />
-          </Paper>
+          </div>
         </Tooltip>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <Typography style={{ padding: "1%" }} variant="caption">
@@ -98,10 +107,10 @@ const ProductDetails = ({
             }}
           >
             <Typography style={{ fontWeight: "bold" }}>
-              ${product.price}
+              ${product.price.toFixed(2)}
             </Typography>
-            <Tooltip title="Add to cart">
-              <IconButton type="submit">
+            <Tooltip title="Add to Cart" placement="top" arrow>
+              <IconButton type="submit" className={classes.customHoverFocus}>
                 <AddShoppingCartOutlined size="small" />
               </IconButton>
             </Tooltip>

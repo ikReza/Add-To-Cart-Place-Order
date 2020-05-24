@@ -1,12 +1,16 @@
 import React from "react";
-import { Paper, Card } from "@material-ui/core";
+import { Paper, Card, Button, Typography } from "@material-ui/core";
 import { Cancel } from "@material-ui/icons";
 
-const AddedToCart = ({ productInCart }) => {
+const AddedToCart = ({ productInCart, setProductInCart }) => {
+  const removeItem = (item) => {
+    const newItem = productInCart.filter((p) => {
+      return p !== item;
+    });
+    setProductInCart([...newItem]);
+  };
   //console.log(productInCart.length);
   if (productInCart.length > 0) {
-    //console.log(productInCart[0].name);
-    //const url = `http://localhost:5000/uploads/${productInCart[0].productImage}`;
     return (
       <div>
         {productInCart.map((p, i) => (
@@ -14,7 +18,15 @@ const AddedToCart = ({ productInCart }) => {
             style={{ height: "5vh", width: "100%", display: "flex" }}
             key={i}
           >
-            <Card style={{ height: "5vh", flex: 1 }}>
+            <Card
+              style={{
+                height: "5vh",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flex: 3,
+              }}
+            >
               <img
                 style={{ height: "5vh", width: "auto" }}
                 src={`http://localhost:5000/uploads/${p[0].productImage}`}
@@ -24,7 +36,7 @@ const AddedToCart = ({ productInCart }) => {
             <Card
               style={{
                 height: "5vh",
-                flex: 2,
+                flex: 4,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -48,7 +60,7 @@ const AddedToCart = ({ productInCart }) => {
             <Card
               style={{
                 height: "5vh",
-                flex: 1,
+                flex: 3,
                 fontSize: 10,
                 display: "flex",
                 alignItems: "center",
@@ -67,14 +79,37 @@ const AddedToCart = ({ productInCart }) => {
                 justifyContent: "center",
               }}
             >
-              <Cancel style={{ color: "#a8180d" }} />
+              <Button>
+                <Cancel
+                  style={{
+                    color: "#a8180d",
+                    height: "15px",
+                    paddingLeft: "5%",
+                  }}
+                  size="small"
+                  onClick={() => removeItem(p)}
+                />
+              </Button>
             </Card>
           </Paper>
         ))}
       </div>
     );
   } else {
-    return <div>Your cart is empty!</div>;
+    return (
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "56vh",
+        }}
+      >
+        <Typography style={{ fontWeight: "bold" }}>
+          Your cart is empty!
+        </Typography>
+      </div>
+    );
   }
 };
 
