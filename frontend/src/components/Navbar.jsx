@@ -13,7 +13,7 @@ const Navbar = ({ productInCart }) => {
   }
   //console.log(totalQty);
   return (
-    <AppBar position="fixed" style={{ backgroundColor: "#2C3531" }}>
+    <AppBar position="static" style={{ backgroundColor: "#2C3531" }}>
       <Toolbar>
         <ChildCare style={{ flexGrow: 0.5 }} />
         <Typography variant="h6" style={{ flexGrow: 11 }}>

@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import { Grid, Paper } from "@material-ui/core";
+import { Grid, Paper, AppBar, Typography, Toolbar } from "@material-ui/core";
 
-import Navbar from "./Navbar";
 import ProductDetails from "./ProductDetails";
 import Cart from "./Cart";
 import Pagination from "./Pagination";
 
-const Home = () => {
+const Home = ({ productInCart, setProductInCart }) => {
   const [products, setProducts] = useState([]);
-  const [productInCart, setProductInCart] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [productPerPage] = useState(6);
 
@@ -32,24 +30,23 @@ const Home = () => {
   );
 
   return (
-    <div style={{ backgroundColor: "whitesmoke" }}>
+    <div style={{ backgroundColor: "whitesmoke", marginTop: "2vh" }}>
       <Grid container spacing={2} direction="row">
-        <Grid item xs={12} sm={12}>
-          <Paper>
-            <Navbar productInCart={productInCart} />
-          </Paper>
-        </Grid>
         <Grid item container spacing={1}>
           <Grid item xs={false} sm={1}></Grid>
           <Grid item xs={12} sm={7}>
             <div>
+              <AppBar position="static" style={{ backgroundColor: "#116468" }}>
+                <Toolbar>
+                  <Typography variant="h6">Available Products</Typography>
+                </Toolbar>
+              </AppBar>
               <div
                 style={{
                   display: "flex",
                   flexWrap: "wrap",
                   justifyContent: "space-between",
-                  marginTop: "10vh",
-                  height: "75.5vh",
+                  height: "66vh",
                   //backgroundColor: "#37474f",
                 }}
               >
@@ -79,7 +76,7 @@ const Home = () => {
             </div>
           </Grid>
           <Grid item xs={12} sm={3}>
-            <Paper style={{ marginTop: "10.3vh" }}>
+            <Paper>
               <Cart
                 productInCart={productInCart}
                 setProductInCart={setProductInCart}

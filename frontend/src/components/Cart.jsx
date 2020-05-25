@@ -55,7 +55,7 @@ const Cart = ({ productInCart, setProductInCart }) => {
           </form>
         </Toolbar>
       </AppBar>
-      <Paper style={{ height: "56vh", overflow: "auto" }}>
+      <Paper style={{ height: "57vh", overflow: "auto" }}>
         <AddedToCart
           productInCart={productInCart}
           setProductInCart={setProductInCart}

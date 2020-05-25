@@ -14,6 +14,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 const Product = require("../models/Products");
+const Customer = require("../models/OrderedProducts");
 
 router.get("/products", async (req, res) => {
   try {
@@ -34,6 +35,19 @@ router.post("/add", upload.single("productImage"), async (req, res) => {
   try {
     const savedProduct = await product.save();
     res.send(savedProduct);
+  } catch (err) {
+    res.status(400).json({ message: err });
+  }
+});
+
+router.post("/cart", async (req, res) => {
+  const customer = new Customer({
+    username: req.body.username,
+    orders: req.body.orders,
+  });
+  try {
+    const savedCustomer = await customer.save();
+    res.send(savedCustomer);
   } catch (err) {
     res.status(400).json({ message: err });
   }

@@ -3,7 +3,6 @@ import {
   Card,
   Typography,
   IconButton,
-  Paper,
   Tooltip,
   TextField,
 } from "@material-ui/core";
@@ -13,7 +12,7 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   size: {
     width: "30%",
-    height: "37vh",
+    height: "32.4vh",
     flexGrow: 1,
     margin: "0.5%",
     backgroundColor: "#DEF2F1",
@@ -46,10 +45,16 @@ const ProductDetails = ({ product, productInCart, setProductInCart }) => {
         <Tooltip title="Favorite">
           <IconButton
             size="small"
-            style={{ marginLeft: "80%", marginRight: "10%" }}
+            style={{ marginLeft: "80%", marginRight: "10%", height: "3vh" }}
             onClick={() => setClicked(!clicked)}
           >
-            <FavoriteBorder style={clicked ? { color: "red" } : {}} />
+            <FavoriteBorder
+              style={
+                clicked
+                  ? { color: "red", height: "2.8vh" }
+                  : { height: "2.8vh" }
+              }
+            />
           </IconButton>
         </Tooltip>
         <Tooltip title={product.description} placement="top">
@@ -61,15 +66,8 @@ const ProductDetails = ({ product, productInCart, setProductInCart }) => {
           >
             <img
               style={{
-                height: "17vh",
-                width: "80%",
-                backgroundSize: "100%",
-                backgroundPosition: "center",
-                transition: "1s",
-                "&:hover": {
-                  backgroundSize: "150%",
-                  backgroundPosition: "center",
-                },
+                height: "15.5vh",
+                width: "85%",
               }}
               src={url}
               alt={product.name}
@@ -111,7 +109,10 @@ const ProductDetails = ({ product, productInCart, setProductInCart }) => {
             </Typography>
             <Tooltip title="Add to Cart" placement="top" arrow>
               <IconButton type="submit" className={classes.customHoverFocus}>
-                <AddShoppingCartOutlined size="small" />
+                <AddShoppingCartOutlined
+                  size="small"
+                  style={{ height: "3vh" }}
+                />
               </IconButton>
             </Tooltip>
           </div>
