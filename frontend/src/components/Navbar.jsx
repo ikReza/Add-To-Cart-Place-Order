@@ -18,6 +18,7 @@ const Navbar = ({ productInCart, location }) => {
   useEffect(() => {
     const { username } = queryString.parse(location.search);
     setUsername(username);
+    //console.log(typeof username, username);
   }, [location.search]);
   //console.log(totalQty);
   return (
@@ -30,7 +31,9 @@ const Navbar = ({ productInCart, location }) => {
         <div style={{ flexGrow: 0.5 }}>
           <Link
             to={
-              productInCart.length > 0 ? `/confirm?username=${username}` : "#"
+              productInCart.length > 0 && typeof username !== "undefined"
+                ? `/confirm?username=${username}`
+                : "#"
             }
             style={{ textDecoration: "none", color: "white" }}
           >

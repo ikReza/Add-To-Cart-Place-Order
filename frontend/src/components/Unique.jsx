@@ -36,18 +36,18 @@ const Unique = ({ productInCart, location }) => {
 
   if (productInCart.length > 0) {
     let arr = getUnique(productInCart);
-    console.log(arr.length);
+    //console.log(arr.length);
     getUnique(productInCart);
     arr.map((item) => {
       let qty = 0;
       productInCart.map((p, i) => {
         if (item._id === p[0]._id) {
-          console.log(item._id, p[0]._id);
+          //console.log(item._id, p[0]._id);
           qty += p[1];
         }
         return qty;
       });
-      console.log("qty", qty);
+      //console.log("qty", qty);
       finalArr.push([item, qty]);
       return qty;
     });
@@ -74,7 +74,7 @@ const Unique = ({ productInCart, location }) => {
     };
 
     axios
-      .post("http://localhost:5000/api/cart", customerData)
+      .post("https://addtocart-placeorder.herokuapp.com/api/cart", customerData)
       .then((res) => {
         console.log(res.data);
       })

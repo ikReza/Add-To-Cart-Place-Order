@@ -18,13 +18,13 @@ const ItemTable = ({ finalArr }) => {
     });
   }
   return (
-    <TableContainer component={Paper} style={{ maxHeight: "60vh" }}>
-      <Table size="small" stickyHeader>
+    <TableContainer component={Paper} style={{ maxHeight: "74vh" }}>
+      <Table stickyHeader>
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
             <TableCell align="right">Image</TableCell>
-            <TableCell align="right">Price($)</TableCell>
+            <TableCell align="right">Price($)/unit</TableCell>
             <TableCell align="right">Quantity</TableCell>
             <TableCell align="right">Total Price($)</TableCell>
           </TableRow>

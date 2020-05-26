@@ -14,7 +14,7 @@ const Home = ({ productInCart, setProductInCart }) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/products")
+      .get("https://addtocart-placeorder.herokuapp.com/api/products")
       .then((res) => {
         console.log(res);
         setProducts(res.data);

@@ -12,7 +12,6 @@ function App() {
         path="/"
         render={(props) => <Navbar productInCart={productInCart} {...props} />}
       />
-      {/* <Navbar productInCart={productInCart} {...props} /> */}
       <Route
         path="/"
         exact
