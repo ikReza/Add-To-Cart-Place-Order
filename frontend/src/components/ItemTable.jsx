@@ -38,7 +38,7 @@ const ItemTable = ({ finalArr }) => {
               <TableCell align="right">
                 <img
                   style={{ height: "5vh", width: "auto" }}
-                  src={`http://localhost:5000/uploads/${row[0].productImage}`}
+                  src={`https://addtocart-placeorder.herokuapp.com/uploads/${row[0].productImage}`}
                   alt={row[0].name}
                 />
               </TableCell>

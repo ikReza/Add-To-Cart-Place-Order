@@ -30,7 +30,7 @@ const ProductDetails = ({ product, productInCart, setProductInCart }) => {
   const [qty, setQty] = useState(1);
 
   const classes = useStyles();
-  const url = `http://localhost:5000/uploads/${product.productImage}`;
+  const url = `https://addtocart-placeorder.herokuapp.com/uploads/${product.productImage}`;
 
   const handleSubmit = (e) => {
     e.preventDefault();

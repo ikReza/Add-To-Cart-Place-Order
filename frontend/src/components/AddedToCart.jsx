@@ -29,7 +29,7 @@ const AddedToCart = ({ productInCart, setProductInCart }) => {
             >
               <img
                 style={{ height: "5vh", width: "auto" }}
-                src={`http://localhost:5000/uploads/${p[0].productImage}`}
+                src={`https://addtocart-placeorder.herokuapp.com/uploads/${p[0].productImage}`}
                 alt={p[0].name}
               />
             </Card>
