@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Modal from "react-modal";
 import {
   AppBar,
@@ -12,7 +13,8 @@ import { DeleteForever } from "@material-ui/icons";
 import AddedToCart from "./AddedToCart";
 
 Modal.setAppElement("#root");
-const Cart = ({ productInCart, setProductInCart }) => {
+const Cart = ({ history, productInCart, setProductInCart }) => {
+  const [username, setUsername] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,6 +22,7 @@ const Cart = ({ productInCart, setProductInCart }) => {
     setProductInCart([]);
     //console.log(`array: ${productInCart.length}`);
   };
+
   let total = 0;
   if (productInCart.length > 0) {
     productInCart.map((p) => {
@@ -27,7 +30,6 @@ const Cart = ({ productInCart, setProductInCart }) => {
       return total;
     });
   }
-  //console.log(productInCart);
 
   return (
     <div>
@@ -55,7 +57,7 @@ const Cart = ({ productInCart, setProductInCart }) => {
           </form>
         </Toolbar>
       </AppBar>
-      <Paper style={{ height: "57vh", overflow: "auto" }}>
+      <Paper style={{ height: "56vh", overflow: "auto" }}>
         <AddedToCart
           productInCart={productInCart}
           setProductInCart={setProductInCart}
@@ -96,7 +98,9 @@ const Cart = ({ productInCart, setProductInCart }) => {
               },
             }}
           >
-            <Button onClick={() => setIsOpen(false)}>x</Button>
+            <Button style={{ color: "red" }} onClick={() => setIsOpen(false)}>
+              X
+            </Button>
             <div
               style={{
                 display: "flex",
@@ -107,28 +111,24 @@ const Cart = ({ productInCart, setProductInCart }) => {
               }}
             >
               <Typography style={{ padding: "1%" }}>
-                Thank you! Please provide us your name and email. We'll contact
-                soon
+                Thank you! Please provide us your name.
               </Typography>
               <TextField
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 label="Name"
                 variant="outlined"
                 size="small"
-                style={{ padding: "1%", width: "60%" }}
+                style={{ padding: "2%", width: "60%" }}
               />
-              <TextField
-                label="Email"
-                variant="outlined"
-                size="small"
-                style={{ padding: "1%", width: "60%" }}
-              />
-              <Button
-                onClick={() => setIsOpen(false)}
-                variant="outlined"
-                color="primary"
+              <Link
+                to={username !== "" ? `/confirm?username=${username}` : "#"}
+                style={{ textDecoration: "none" }}
               >
-                Submit
-              </Button>
+                <Button variant="outlined" color="primary">
+                  Submit
+                </Button>
+              </Link>
             </div>
           </Modal>
           <Typography>{`Total: $${total.toFixed(2)}`}</Typography>

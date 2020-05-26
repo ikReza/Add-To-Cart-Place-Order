@@ -7,25 +7,28 @@ import Unique from "./components/Unique";
 function App() {
   const [productInCart, setProductInCart] = useState([]);
   return (
-    <div>
-      <Navbar productInCart={productInCart} />
-      <Router>
-        <Route
-          path="/"
-          exact
-          component={() => (
-            <Home
-              productInCart={productInCart}
-              setProductInCart={setProductInCart}
-            />
-          )}
-        />
-        <Route
-          path="/confirm"
-          component={() => <Unique productInCart={productInCart} />}
-        />
-      </Router>
-    </div>
+    <Router>
+      <Route
+        path="/"
+        render={(props) => <Navbar productInCart={productInCart} {...props} />}
+      />
+      {/* <Navbar productInCart={productInCart} {...props} /> */}
+      <Route
+        path="/"
+        exact
+        render={(props) => (
+          <Home
+            {...props}
+            productInCart={productInCart}
+            setProductInCart={setProductInCart}
+          />
+        )}
+      />
+      <Route
+        path="/confirm"
+        render={(props) => <Unique {...props} productInCart={productInCart} />}
+      />
+    </Router>
   );
 }
 

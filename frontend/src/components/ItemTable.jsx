@@ -9,26 +9,21 @@ import {
   TableBody,
 } from "@material-ui/core";
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
-
 const ItemTable = ({ finalArr }) => {
+  let total = 0;
+  if (finalArr.length > 0) {
+    finalArr.map((p) => {
+      total += p[0].price * p[1];
+      return total;
+    });
+  }
   return (
-    <TableContainer component={Paper}>
-      <Table>
+    <TableContainer component={Paper} style={{ maxHeight: "60vh" }}>
+      <Table size="small" stickyHeader>
         <TableHead>
           <TableRow>
-            <TableCell>Image</TableCell>
-            <TableCell align="right">Name</TableCell>
+            <TableCell>Name</TableCell>
+            <TableCell align="right">Image</TableCell>
             <TableCell align="right">Price($)</TableCell>
             <TableCell align="right">Quantity</TableCell>
             <TableCell align="right">Total Price($)</TableCell>
@@ -36,16 +31,27 @@ const ItemTable = ({ finalArr }) => {
         </TableHead>
         <TableBody>
           {finalArr.map((row) => (
-            <TableRow key={row.name}>
+            <TableRow key={row[0].name}>
               <TableCell component="th" scope="row">
-                {row.name}
+                {row[0].name}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+              <TableCell align="right">
+                <img
+                  style={{ height: "5vh", width: "auto" }}
+                  src={`http://localhost:5000/uploads/${row[0].productImage}`}
+                  alt={row[0].name}
+                />
+              </TableCell>
+              <TableCell align="right">{row[0].price}</TableCell>
+              <TableCell align="right">{row[1]}</TableCell>
+              <TableCell align="right">{row[0].price * row[1]}</TableCell>
             </TableRow>
           ))}
+          <TableRow>
+            <TableCell rowSpan={3} />
+            <TableCell colSpan={3}>Total Price</TableCell>
+            <TableCell align="right">{total.toFixed(2)}</TableCell>
+          </TableRow>
         </TableBody>
       </Table>
     </TableContainer>
