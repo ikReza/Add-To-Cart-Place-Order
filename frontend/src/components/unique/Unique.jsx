@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import queryString from "query-string";
 import axios from "axios";
-import ItemTable from "./ItemTable";
+import ItemTable from "../ItemTable";
 import {
   Paper,
   Typography,
@@ -12,6 +12,7 @@ import {
 } from "@material-ui/core";
 import { AddShoppingCart } from "@material-ui/icons";
 import MuiAlert from "@material-ui/lab/Alert";
+import { useStyles } from "./styles";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -20,6 +21,7 @@ function Alert(props) {
 const Unique = ({ productInCart, location }) => {
   const [username, setUsername] = useState("");
   const [open, setOpen] = useState(false);
+  const classes = useStyles();
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -86,18 +88,19 @@ const Unique = ({ productInCart, location }) => {
 
   if (finalArr.length > 0) {
     return (
-      <div style={{ backgroundColor: "whitesmoke", marginTop: "2vh" }}>
+      <div className={classes.container}>
         <form onSubmit={handleSubmit}>
           <ItemTable finalArr={finalArr} />
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <Link
+          <div className={classes.actions}>
+            <Button
+              component={Link}
               to={`/?username=${username}`}
-              style={{ textDecoration: "none" }}
+              className={classes.backBtn}
+              variant="contained"
+              color="primary"
             >
-              <Button variant="contained" color="primary">
-                Go Back
-              </Button>
-            </Link>
+              Go Back
+            </Button>
             <Button
               variant="contained"
               color="primary"
@@ -120,16 +123,7 @@ const Unique = ({ productInCart, location }) => {
   } else {
     return (
       <div style={{ backgroundColor: "whitesmoke", marginTop: "2vh" }}>
-        <Paper
-          style={{
-            backgroundColor: "whitesmoke",
-            height: "80vh",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
+        <Paper className={classes.emptyPaper}>
           <Typography style={{ fontWeight: "bold" }}>
             {`${username}, Your Cart is currently empty!`}
           </Typography>

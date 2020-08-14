@@ -10,12 +10,15 @@ import {
   TextField,
 } from "@material-ui/core";
 import { DeleteForever } from "@material-ui/icons";
-import AddedToCart from "./AddedToCart";
+import AddedToCart from "../addedToCart/AddedToCart";
+import { useStyles } from "./styles";
 
 Modal.setAppElement("#root");
 const Cart = ({ history, productInCart, setProductInCart }) => {
   const [username, setUsername] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const classes = useStyles();
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -34,20 +37,12 @@ const Cart = ({ history, productInCart, setProductInCart }) => {
   return (
     <div>
       <AppBar position="static" style={{ backgroundColor: "#116468" }}>
-        <Toolbar
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            paddingLeft: "2%",
-            paddingRight: "2%",
-          }}
-        >
+        <Toolbar className={classes.navbar}>
           <Typography variant="h6">Your Cart</Typography>
           <form onSubmit={handleSubmit}>
             <Button
               type="submit"
-              style={{ color: "#C3073F", textTransform: "none" }}
+              className={classes.deleteBtn}
               variant="contained"
               size="small"
             >
@@ -57,22 +52,14 @@ const Cart = ({ history, productInCart, setProductInCart }) => {
           </form>
         </Toolbar>
       </AppBar>
-      <Paper style={{ height: "56vh", overflow: "auto" }}>
+      <Paper className={classes.productAdd}>
         <AddedToCart
           productInCart={productInCart}
           setProductInCart={setProductInCart}
         />
       </Paper>
       <AppBar position="static" style={{ backgroundColor: "#116468" }}>
-        <Toolbar
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            paddingLeft: "2%",
-            paddingRight: "2%",
-          }}
-        >
+        <Toolbar className={classes.bottomNav}>
           <Button
             size="small"
             variant="contained"
@@ -101,15 +88,7 @@ const Cart = ({ history, productInCart, setProductInCart }) => {
             <Button style={{ color: "red" }} onClick={() => setIsOpen(false)}>
               X
             </Button>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                marginTop: "2%",
-              }}
-            >
+            <div className={classes.modal}>
               <Typography style={{ padding: "1%" }}>
                 Thank you! Please provide us your name.
               </Typography>

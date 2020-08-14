@@ -25,7 +25,12 @@ const Navbar = ({ productInCart, location }) => {
     <AppBar position="static" style={{ backgroundColor: "#2C3531" }}>
       <Toolbar>
         <ChildCare style={{ flexGrow: 0.5 }} />
-        <Typography variant="h6" style={{ flexGrow: 11 }}>
+        <Typography
+          component={Link}
+          to="/"
+          variant="h6"
+          style={{ flexGrow: 11, textDecoration: "none", color: "white" }}
+        >
           Kids Store
         </Typography>
         <div style={{ flexGrow: 0.5 }}>

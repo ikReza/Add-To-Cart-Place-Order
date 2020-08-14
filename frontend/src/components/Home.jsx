@@ -4,7 +4,7 @@ import axios from "axios";
 import { Grid, Paper, AppBar, Typography, Toolbar } from "@material-ui/core";
 
 import ProductDetails from "./ProductDetails";
-import Cart from "./Cart";
+import Cart from "./cart/Cart";
 import Pagination from "./Pagination";
 
 const Home = ({ productInCart, setProductInCart }) => {
